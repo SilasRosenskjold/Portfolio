@@ -17,6 +17,10 @@ def primeFinder(num):
     
     
     for i in range(3,num,2):
+        if i in primeListMaster:
+            pass
+        
+        else:
         iSqrt = math.sqrt(i)
         
         #build a list of all primes equal to or lower than the square root of i
@@ -41,7 +45,7 @@ def primeFinder(num):
             moduloResultLocal = []
             primeListLocal = []
             
-            #Appends any primes it finds to the master list so that it can in theory generate any prime that exists.
+            #Experimental which would allow the function to generate any prime number (in theory)
             if i > primeListMaster[-1]:
                 primeListMaster.append(i)
             else:
