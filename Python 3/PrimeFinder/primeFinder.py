@@ -40,6 +40,14 @@ def primeFinder(num):
             primeListResult.append(i)
             moduloResultLocal = []
             primeListLocal = []
+            
+            #Experimental which would allow the function to generate any prime number (in theory)
+            if i > primeListMaster[-1]:
+                primeListMaster.append(i)
+            else:
+                pass
+         
+        
            
             
     return print('The amoumt of primes between 2 and {} are {}. Here is the full list of prime numbers:\n{}'.format(num, len(primeListResult), primeListResult))
