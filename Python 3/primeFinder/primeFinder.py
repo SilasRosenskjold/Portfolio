@@ -1,8 +1,10 @@
 def primeFinder(num):
+    '''
+    This function divides a given number with all primes lower than the square root of the number. 
+    It then checks the modulo result of the primes%number for any 0s, and if none are found the number is a prime.
+    '''
     import math
-    '''This function divides a given number with all primes lower than the square root of the number. 
-    It then checks the modulo result of the primes%number for any 0s, and if none are found the number is a prime.'''
-    
+   
     #A list containing all prime in the range
     primeListResult = [2]
     
