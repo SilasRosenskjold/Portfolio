@@ -45,7 +45,7 @@ def primeFinder(num):
             moduloResultLocal = []
             primeListLocal = []
             
-            #Experimental which would allow the function to generate any prime number (in theory)
+            #Appends new primes that are not in the master list which allows the function to run indefinitely, in theory.
             if i > primeListMaster[-1]:
                 primeListMaster.append(i)
             else:
