@@ -1,13 +1,18 @@
+#Importing the Decimal module for accuracy when rounding
+from decimal import *
+getcontext()
+
 ## Collection of Exchange rates for Currencies 
 ## Note that the account shows DKK per default, and as such this is not saved as a variable
 ## My next challenge is to source this information from an online up-to-date database
+
 #Currencies
-eur_exchange_rate = 0.133809
-usd_exchange_rate = 0.148610
-gbp_exchange_rate = 0.113742
-cny_exchange_rate = 1.03248 #Chinese Yuan Renminbi
-jpy_exchange_rate = 16.2732 #Japanese Yen
-xbt_exchange_rate = 0.0000189653 #Bitcoin
+eur_exchange_rate = Decimal(0.133809)
+usd_exchange_rate = Decimal(0.148610)
+gbp_exchange_rate = Decimal(0.113742)
+cny_exchange_rate = Decimal(1.03248) #Chinese Yuan Renminbi
+jpy_exchange_rate = Decimal(16.2732) #Japanese Yen
+xbt_exchange_rate = Decimal(0.0000189653) #Bitcoin
 
 #A collection of nested lists in a tuple containing info about each currency in the format [Abbreviation,Symbol,Exchange rate (TO DKK)]
 currencies = (["DKK","kr",1],["EUR","€",eur_exchange_rate],["USD","$",usd_exchange_rate],["GBP","£",gbp_exchange_rate],["CNY","元",cny_exchange_rate],["JPY","¥",jpy_exchange_rate],["XBT","₿",xbt_exchange_rate])
@@ -17,7 +22,7 @@ class BankAccount():
     
     def __init__ (self,name,balance=0):
         self.name = name
-        self.balance = balance
+        self.balance = Decimal(balance)
         
         self.currency = currencies[0]
         self.account_name = name + "'s bank account'"
@@ -27,16 +32,17 @@ class BankAccount():
 class CheckingAccount(BankAccount):
     
     def check(self):
-        balance_calculated = float(self.balance)*self.currency[2]
-        return print('Your current balance is {} {}'.format(float(balance_calculated),self.currency[1]))
+        balance_calculated = Decimal(self.balance)*self.currency[2]
+        return print('Your current balance is {} {}'.format(round(Decimal(balance_calculated),2),self.currency[1]))
     
     def deposit(self,deposit):
         #self.deposit = deposit
         if type(deposit) in (float,int):
-            self.balance = float(deposit) + self.balance
-            print('{} has been deposited to your account, your new balance is {} {}'.format(deposit,self.balance,self.currency[1]))
+            new_balance = Decimal(deposit) + Decimal(self.balance)
+            self.balance = Decimal(new_balance)
+            return print('{} has been deposited to your account, your new balance is {} {}'.format(deposit,round(Decimal(self.balance),2),self.currency[1]))
         else:
-            print('Please provide a number')
+            return print('Please provide a number')
             
     def withdraw(self,withdraw):
         #self.withdraw = withdraw
@@ -46,11 +52,11 @@ class CheckingAccount(BankAccount):
                 print('Sorry there is not coverage on your account for that amount')
                 
             else:
-                self.balance = self.balance - float(withdraw) 
-                print('{} has been withdrawn from your account, your new balance is {} {}'.format(withdraw,self.balance,self.currency[1]))
-                return withdraw
+                new_balance = Decimal(self.balance) - Decimal(withdraw)
+                self.balance = Decimal(new_balance)
+                return print('{} has been withdrawn from your account, your new balance is {} {}'.format(withdraw,round(Decimal(self.balance),2),self.currency[1]))
         else:
-            print('Please provide a number')
+            return print('Please provide a number')
     
     def change_currency(self,selected_currency):
             for i in range(len(currencies)):
