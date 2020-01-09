@@ -1,8 +1,6 @@
 ## Collection of Exchange rates for Currencies 
 ## Note that the account shows DKK per default, and as such this is not saved as a variable
 ## My next challenge is to source this information from an online up-to-date database
-
-
 #Currencies
 eur_exchange_rate = 0.133809
 usd_exchange_rate = 0.148610
@@ -11,7 +9,7 @@ cny_exchange_rate = 1.03248 #Chinese Yuan Renminbi
 jpy_exchange_rate = 16.2732 #Japanese Yen
 xbt_exchange_rate = 0.0000189653 #Bitcoin
 
-#A nested list contai
+#A collection of nested lists in a tuple containing info about each currency in the format [Abbreviation,Symbol,Exchange rate (TO DKK)]
 currencies = (["DKK","kr",1],["EUR","€",eur_exchange_rate],["USD","$",usd_exchange_rate],["GBP","£",gbp_exchange_rate],["CNY","元",cny_exchange_rate],["JPY","¥",jpy_exchange_rate],["XBT","₿",xbt_exchange_rate])
 
 
@@ -61,4 +59,4 @@ class CheckingAccount(BankAccount):
                     self.currency = currencies[i]
                     return print("Your Checkings Account will show your balance in the currency {}".format(self.currency[0]))
             
-            return print("Please provide a valid currency. Currently you can choose from these options:\nEUR: Euro\nUSD: US Dollars\nGBP: British Pounds\nCNY: Chinese Yuan\nJPY: Japanese Yen\nXBT: Bitcoin"
+            return print("Please provide a valid currency. Currently you can choose from these options:\nEUR: Euro\nUSD: US Dollars\nGBP: British Pounds\nCNY: Chinese Yuan\nJPY: Japanese Yen\nXBT: Bitcoin")
