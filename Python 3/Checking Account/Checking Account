@@ -32,20 +32,22 @@ class BankAccount():
 class CheckingAccount(BankAccount):
     
     def check(self):
+        
         balance_calculated = Decimal(self.balance)*self.currency[2]
         return print('Your current balance is {} {}'.format(round(Decimal(balance_calculated),2),self.currency[1]))
     
     def deposit(self,deposit):
-        #self.deposit = deposit
+        
         if type(deposit) in (float,int):
             new_balance = Decimal(deposit) + Decimal(self.balance)
             self.balance = Decimal(new_balance)
             return print('{} has been deposited to your account, your new balance is {} {}'.format(deposit,round(Decimal(self.balance),2),self.currency[1]))
+        
         else:
             return print('Please provide a number')
             
     def withdraw(self,withdraw):
-        #self.withdraw = withdraw
+
         if type(withdraw) in (float,int):
             
             if withdraw > self.balance:
@@ -59,6 +61,7 @@ class CheckingAccount(BankAccount):
             return print('Please provide a number')
     
     def change_currency(self,selected_currency):
+            
             for i in range(len(currencies)):
             
                 if selected_currency == currencies[i][0]:
