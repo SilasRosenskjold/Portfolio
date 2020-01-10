@@ -1,10 +1,10 @@
 #Importing the Decimal module for accuracy when rounding
-from decimal import *
-getcontext()
+from decimal import Decimal
 
-## Collection of Exchange rates for Currencies 
-## Note that the account shows DKK per default, and as such this is not saved as a variable
-## My next challenge is to source this information from an online up-to-date database
+## Collection of Exchange rates for Currencies
+## Note that the account shows DKK per default
+## My next challenge is to import this information
+# from an online up-to-date database
 
 #Currencies
 eur_exchange_rate = Decimal(0.133809)
@@ -14,58 +14,80 @@ cny_exchange_rate = Decimal(1.03248) #Chinese Yuan Renminbi
 jpy_exchange_rate = Decimal(16.2732) #Japanese Yen
 xbt_exchange_rate = Decimal(0.0000189653) #Bitcoin
 
-#A collection of nested lists in a tuple containing info about each currency in the format [Abbreviation,Symbol,Exchange rate (TO DKK)]
-currencies = (["DKK","kr",1],["EUR","€",eur_exchange_rate],["USD","$",usd_exchange_rate],["GBP","£",gbp_exchange_rate],["CNY","元",cny_exchange_rate],["JPY","¥",jpy_exchange_rate],["XBT","₿",xbt_exchange_rate])
-
+#A collection of nested lists in a tuple containing info about each currency
+# in the format [Abbreviation,Symbol,Exchange rate (TO DKK)]
+currencies = (
+    ["DKK", "kr", 1],
+    ["EUR", "€", eur_exchange_rate],
+    ["USD", "$", usd_exchange_rate],
+    ["GBP", "£", gbp_exchange_rate],
+    ["CNY", "元", cny_exchange_rate],
+    ["JPY", "¥", jpy_exchange_rate],
+    ["XBT", "₿", xbt_exchange_rate]
+)
 
 class BankAccount():
-    
-    def __init__ (self,name,balance=0):
+
+    def __init__(self, name, balance=0):
         self.name = name
         self.balance = Decimal(balance)
-        
+
         self.currency = currencies[0]
         self.account_name = name + "'s bank account'"
-        
+
         print(f'Thank you for setting up a new account {name}.')
-        
+
 class CheckingAccount(BankAccount):
-    
+
     def check(self):
-        
+
         balance_calculated = Decimal(self.balance)*self.currency[2]
-        return print('Your current balance is {} {}'.format(round(Decimal(balance_calculated),2),self.currency[1]))
-    
-    def deposit(self,deposit):
-        
-        if type(deposit) in (float,int):
+        return print('Your current balance is {} {}'.format(
+            round(Decimal(balance_calculated), 2), self.currency[1])
+                    )
+
+    def deposit(self, deposit):
+
+        if type(deposit) in (float, int):
             new_balance = Decimal(deposit) + Decimal(self.balance)
             self.balance = Decimal(new_balance)
-            return print('{} has been deposited to your account, your new balance is {} {}'.format(deposit,round(Decimal(self.balance),2),self.currency[1]))
-        
+            return print('{} has been deposited to your account,'
+                         ' your new balance is {} {}'.format(
+                             deposit, round(Decimal(self.balance), 2),
+                             self.currency[1])
+                         )
+
         else:
             return print('Please provide a number')
-            
-    def withdraw(self,withdraw):
 
-        if type(withdraw) in (float,int):
-            
+    def withdraw(self, withdraw):
+
+        if type(withdraw) in (float, int):
+
             if withdraw > self.balance:
                 print('Sorry there is not coverage on your account for that amount')
-                
+
             else:
                 new_balance = Decimal(self.balance) - Decimal(withdraw)
                 self.balance = Decimal(new_balance)
                 return print('{} has been withdrawn from your account, your new balance is {} {}'.format(withdraw,round(Decimal(self.balance),2),self.currency[1]))
         else:
             return print('Please provide a number')
-    
-    def change_currency(self,selected_currency):
-            
-            for i in range(len(currencies)):
-            
-                if selected_currency == currencies[i][0]:
-                    self.currency = currencies[i]
-                    return print("Your Checkings Account will show your balance in the currency {}".format(self.currency[0]))
-            
-            return print("Please provide a valid currency. Currently you can choose from these options:\nEUR: Euro\nUSD: US Dollars\nGBP: British Pounds\nCNY: Chinese Yuan\nJPY: Japanese Yen\nXBT: Bitcoin")
+
+    def change_currency(self, selected_currency):
+
+        for i in range(len(currencies)):
+
+            if selected_currency == currencies[i][0]:
+                self.currency = currencies[i]
+                return print("Your Checkings Account will show your balance in the currency {}".format(self.currency[0]))
+
+        return print("Please provide a valid currency. "
+        "Currently you can choose from these options:\n"
+        "EUR: Euro\n"
+        "USD: US Dollars\n"
+        "GBP: British Pounds\n"
+        "CNY: Chinese Yuan\n"
+        "JPY: Japanese Yen\n"
+        "XBT: Bitcoin"
+)
